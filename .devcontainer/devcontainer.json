@@ -1,15 +1,15 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/universal
 {
-	"name": "Default Linux Universal",
+	"name": "Development Environment Template",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	// "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
-	"features": {
-		"ghcr.io/jungaretti/features/ripgrep:1": {}
-	},
+	// "features": {
+	// 	"ghcr.io/jungaretti/features/ripgrep:1": {}
+	// },
 	"customizations": {
 		"vscode": {
 			"extensions": [
