@@ -1,6 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+# Stripped-down .bashrc for my devcontainers
 
 # If not running interactively, don't do anything
 case $- in
@@ -194,104 +192,6 @@ alias gb='git branch'
 # Navigation helpers
 alias c='clear'
 alias h='history'
-alias prj='cd ~/Desktop/projects'
 
 # Python venv
 alias venv='source venv/bin/activate'
-
-# my notepad
-alias note='printf "\n\n---\n# %(%F)T %(%T)T\n" >> ~/notes/scratchpad.md; code ~/notes/scratchpad.md &'
-
-
-# Function to initialize & work with my projects from a vscode devcontainer:
-#  - When starting a new project, automatically initialize the github and clone it
-#  - Build a fresh devcontainer to develop the project in, spin it up, and open bash inside
-#  - Open VSCode in the project workspace with a prompt to connect to the newly created devontainer
-# Uses central Dockerfile and devcontainer.json templates so I don't need to create or copy this junk into ever new project I create
-# Assumes Dockerfile & decontainer.json templates are in ~/.dev
-# Function to handle dev container operations
-dev() {
-    # If no parameters provided, just spin up devcontainer in current directory & open VSCode
-    if [ -z "$1" ]; then
-        echo "Opening VS Code and connecting to dev container in current directory..."
-        
-        # Start the container in the background
-        devcontainer up
-        
-        # Open VS Code with the current folder (detached)
-        code . >/dev/null 2>&1 &
-        
-        # Execute bash in the container
-        devcontainer exec bash
-        
-        return 0
-    fi
-    
-    # If first parameter is "init", perform full initialization
-    if [ "$1" = "init" ]; then
-        # Check if project name is provided
-        if [ -z "$2" ]; then
-            echo "Error: Project name is required for initialization"
-            echo "Usage: dev init <project_name>"
-            return 1
-        fi
-
-        PROJECT_NAME="$2"
-        
-        # Check if the template files exist
-        if [ ! -d ~/.dev/.devcontainer ] || [ ! -f ~/.dev/.devcontainer/Dockerfile ] || [ ! -f ~/.dev/.devcontainer/devcontainer.json ]; then
-            echo "Error: Template files not found in ~/.dev/.devcontainer/"
-            echo "Please ensure both Dockerfile and devcontainer.json exist in ~/.dev/.devcontainer/"
-            return 1
-        fi
-        
-        # Create GitHub repo and clone it
-        echo "Creating GitHub repository: $PROJECT_NAME"
-        if ! gh repo create "$PROJECT_NAME" --public --clone; then
-            echo "Error: Failed to create GitHub repository"
-            return 1
-        fi
-        
-        # Move into the newly created project directory
-        cd "$PROJECT_NAME" || return 1
-        
-        # Copy template files
-        cp -r ~/.dev/.devcontainer .
-        
-        # Set the Docker image name to the project name
-        sed -i 's/"name": *"[^"]*"/"name": "'"$PROJECT_NAME"'"/' .devcontainer/devcontainer.json
-        
-        # Commit the initialized devcontainer
-        git add .
-        git commit -m "Initial commit: Set up development container"
-        
-        # Push changes with upstream tracking
-        git push -u origin $(git symbolic-ref --short HEAD)
-        
-        # Build dev container image
-        echo "Building dev container..."
-        devcontainer build
-        
-        # Open VS Code and attach to container
-        echo "Opening VS Code and connecting to dev container..."
-
-        # Start the container in the background
-        devcontainer up
-        
-        # Open VS Code with the project folder (detached and redirecting output)
-        code . >/dev/null 2>&1 &
-        
-        echo "Project $PROJECT_NAME has been initialized successfully!"
-        
-        # Execute bash in the container
-        devcontainer exec bash
-        
-        return 0
-    fi
-    
-    # If we get here, invalid usage
-    echo "Usage: dev [init <project_name>]"
-    echo "  - With no arguments: Opens current directory in VS Code with devcontainer"
-    echo "  - With 'init <project_name>': Initializes a new project with devcontainer setup"
-    return 1
-}
