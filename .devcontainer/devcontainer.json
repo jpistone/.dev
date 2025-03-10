@@ -7,9 +7,7 @@
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
-	// "features": {
-	// 	"ghcr.io/jungaretti/features/ripgrep:1": {}
-	// },
+
 	"customizations": {
 		"vscode": {
 			"extensions": [

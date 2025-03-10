@@ -270,7 +270,7 @@ dev() {
         
         # Build dev container image
         echo "Building dev container..."
-        devcontainer build
+        devcontainer build --workspace-folder . --image-name $PROJECT_NAME
         
         # Open VS Code and attach to container
         echo "Opening VS Code and connecting to dev container..."

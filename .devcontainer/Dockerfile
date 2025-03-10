@@ -4,7 +4,7 @@ FROM mcr.microsoft.com/devcontainers/universal
 RUN apt-get update && apt-get install -y pydf ripgrep
 
 # Copy bashrc
-COPY ./.devcontainer/devcontainer_bashrc /home/codespace/.bashrc
+COPY devcontainer_bashrc /home/codespace/.bashrc
 
 # Install 
 # USER codespace
