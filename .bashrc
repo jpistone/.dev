@@ -259,9 +259,6 @@ dev() {
         # Copy template files
         cp -r ~/.dev/.devcontainer .
         
-        # Set the Docker image name to the project name
-        sed -i 's/"name": *"[^"]*"/"name": "'"$PROJECT_NAME"'"/' .devcontainer/devcontainer.json
-        
         # Commit the initialized devcontainer
         git add .
         git commit -m "Initial commit: Set up development container"
@@ -269,20 +266,18 @@ dev() {
         # Push changes with upstream tracking
         git push -u origin $(git symbolic-ref --short HEAD)
         
-        # Build dev container image
-        echo "Building dev container..."
-        devcontainer build --workspace-folder . --image-name $PROJECT_NAME
-        
-        # Open VS Code and attach to container
-        echo "Opening VS Code and connecting to dev container..."
+        # Build the devcontainer image and run the container
+        echo "Spinning up fresh dev environment"
+        devcontainer up --workspace-folder .
 
-        # Start the container in the background
-        devcontainer up
-        
+        # Open VS Code and attach to container
+        echo "Opening VS Code, please attach to running container..."
+
         # Open VS Code with the project folder (detached and redirecting output)
         code . >/dev/null 2>&1 &
         
         echo "Project $PROJECT_NAME has been initialized successfully!"
+        echo "Connecting to dev machine..."
         
         # Execute bash in the container
         devcontainer exec bash
