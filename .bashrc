@@ -190,6 +190,7 @@ alias gp='git push'
 alias gl='git log --oneline --graph --decorate'
 alias gd='git diff --patch-with-stat'
 alias gb='git branch'
+alias gpo='git push origin'
 
 # Navigation helpers
 alias c='clear'
