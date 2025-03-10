@@ -217,13 +217,13 @@ dev() {
         echo "Opening VS Code and connecting to dev container in current directory..."
         
         # Start the container in the background
-        devcontainer up
+        devcontainer up --workspace-folder .
         
         # Open VS Code with the current folder (detached)
         code . >/dev/null 2>&1 &
         
         # Execute bash in the container
-        devcontainer exec bash
+        devcontainer exec --workspace-folder bash
         
         return 0
     fi
