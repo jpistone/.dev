@@ -266,22 +266,6 @@ dev() {
         # Push changes with upstream tracking
         git push -u origin $(git symbolic-ref --short HEAD)
         
-        # Build the devcontainer image and run the container
-        echo "Spinning up fresh dev environment"
-        devcontainer up --workspace-folder .
-
-        # Open VS Code and attach to container
-        echo "Opening VS Code, please attach to running container..."
-
-        # Open VS Code with the project folder (detached and redirecting output)
-        code . >/dev/null 2>&1 &
-        
-        echo "Project $PROJECT_NAME has been initialized successfully!"
-        echo "Connecting to dev machine..."
-        
-        # Execute bash in the container
-        devcontainer exec bash
-        
         return 0
     fi
     
