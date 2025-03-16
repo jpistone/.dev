@@ -192,7 +192,7 @@ alias gpo='git push origin'
 # Adds .gitkeep to every empty directory leaf
 # Useful for tracking new project directory tree in git
 # To prune addition directories, add another -o -name <ignoreme> -prune
-alias gitkeep="find . -name .git -prune -o -name .devcontainer -prune -o -type d -empty -ok touch '{}/.gitkeep' ';'"
+alias gitkeep="find . -name .git -prune -o -name .devcontainer -prune -o -type d -empty -exec touch '{}/.gitkeep' ';'"
 
 # Navigation helpers
 alias c='clear'
