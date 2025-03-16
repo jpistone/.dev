@@ -191,6 +191,10 @@ alias gl='git log --oneline --graph --decorate'
 alias gd='git diff --patch-with-stat'
 alias gb='git branch'
 alias gpo='git push origin'
+# Adds .gitkeep to every empty directory leaf
+# Useful for tracking new project directory tree in git
+# To prune addition directories, add another -o -name <ignoreme> -prune
+alias gitkeep="find . -name .git -prune -o -name .devcontainer -prune -o -type d -empty -ok touch '{}/.gitkeep' ';'"
 
 # Navigation helpers
 alias c='clear'
