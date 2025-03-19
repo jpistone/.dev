@@ -252,7 +252,7 @@ dev() {
         
         # Create GitHub repo and clone it
         echo "Creating GitHub repository: $PROJECT_NAME"
-        if ! gh repo create "$PROJECT_NAME" --public --clone; then
+        if ! gh repo create "$PROJECT_NAME" --private --clone; then
             echo "Error: Failed to create GitHub repository"
             return 1
         fi
