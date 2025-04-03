@@ -211,6 +211,8 @@ alias note='printf "\n\n---\n# %(%F)T %(%T)T\n" >> ~/notes/scratchpad.md; code ~
 readthis() { printf "\n\n---\n# %s\n%(%F)T %(%T)T\n" "$*" >> ~/notes/reading.md; }
 alias readings='code ~/notes/reading.md &'
 
+# Ollama
+alias ollama="docker exec -it ollama"
 
 # Function to initialize & work with my projects from a vscode devcontainer:
 #  - When starting a new project, automatically initialize the github and clone it
