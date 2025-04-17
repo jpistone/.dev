@@ -17,7 +17,11 @@ shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=10000
-HISTFILESIZE=20000
+HISTFILESIZE=100000
+
+# Merge history from all terms. Ensure we dont lose history on dirty exit
+PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"  # Save and reload the history after each command finishes
+# Not sure that we need shopt -s histappend now..
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
