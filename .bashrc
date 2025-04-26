@@ -182,7 +182,7 @@ alias ....='cd ../../..'
 alias ~='cd ~'
 
 # Better du
-alias dfs='shopt -s dotglob; du -sh * | sort -h; shopt -u dotglob'
+alias dfs='shopt -s dotglob; du -sh * | sort -hr; shopt -u dotglob'
 
 # Safer file operations
 alias rm='rm -i'
