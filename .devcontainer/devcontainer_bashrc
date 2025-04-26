@@ -180,6 +180,9 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+# Better du
+alias dfs='shopt -s dotglob; du -sh * | sort -h; shopt -u dotglob'
+
 # Git shortcuts
 alias gs='git status'
 alias ga='git add'
